@@ -38,7 +38,6 @@ DEBUG = True
 # settings.py
 
 ALLOWED_HOSTS = [
-    'vendor-shop-management.onrender.com',
     'localhost',  # Optional: for local development
     '127.0.0.1',  # Optional: for local development
 ]
