@@ -2,6 +2,8 @@
 
 This is a Django-based project for managing vendors and shops. It includes features like user authentication, shop management, and a public API for searching nearby shops.
 
+🔹 **Live Deployment:** [Vendor Shop Management (Render)](https://vendor-shop-management-1.onrender.com)
+
 ---
 
 ## **Table of Contents**
