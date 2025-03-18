@@ -24,3 +24,5 @@ whitenoise==6.5.0
 
 # Additional Utilities (optional)
 Pillow==10.0.1  # For image handling
+
+geopy==2.4.0
