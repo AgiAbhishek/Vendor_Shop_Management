@@ -35,7 +35,13 @@ REST_FRAMEWORK = {
 # Other settings (add these if they are missing)
 SECRET_KEY = 'your-secret-key-here'  # Replace with a secure key
 DEBUG = True
-ALLOWED_HOSTS = []
+# settings.py
+
+ALLOWED_HOSTS = [
+    'vendor-shop-management-1.onrender.com',
+    'localhost',  # Optional: for local development
+    '127.0.0.1',  # Optional: for local development
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
