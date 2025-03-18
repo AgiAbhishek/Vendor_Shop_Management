@@ -1,3 +1,4 @@
+from pathlib import Path  # Ensure this line is present
 import os
 import dj_database_url
 
