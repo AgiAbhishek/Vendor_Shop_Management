@@ -36,11 +36,10 @@ REST_FRAMEWORK = {
 SECRET_KEY = 'your-secret-key-here'  # Replace with a secure key
 DEBUG = True
 # settings.py
-
 ALLOWED_HOSTS = [
-    'vendor-shop-management-1.onrender.com',
-    'localhost',  # Optional: for local development
-    '127.0.0.1',  # Optional: for local development
+    'vendor-shop-management.onrender.com',  # Add your Render domain here
+    'localhost',  # For local development
+    '127.0.0.1',  # For local development
 ]
 
 MIDDLEWARE = [
