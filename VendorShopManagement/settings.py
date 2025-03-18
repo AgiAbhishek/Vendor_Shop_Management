@@ -1,23 +1,17 @@
 from pathlib import Path
-import os
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'your-secret-key-here')
+# Database configuration
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',  # Fixed typo
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
-
-# Allow all hosts for testing (not recommended for production)
-ALLOWED_HOSTS = [
-    'vendor-shop-management.onrender.com',  # Add your Render domain here
-    'localhost',  # For local development
-    '127.0.0.1',  # For local development
-]
-# Application definition
+# Installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -27,8 +21,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    'shops',
+    'shops',  # Your custom app
 ]
+
+# Django REST framework configuration
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [  # Fixed typo
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+# Other settings (add these if they are missing)
+SECRET_KEY = 'your-secret-key-here'  # Replace with a secure key
+DEBUG = True
+ALLOWED_HOSTS = []
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -45,8 +51,8 @@ ROOT_URLCONF = 'VendorShopManagement.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [],  # Add any additional template directories here
+        'APP_DIRS': True,  # This ensures Django looks for templates in each app's `templates/` directory
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -60,17 +66,29 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'VendorShopManagement.wsgi.application'
 
-# Database
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
-    )
-}
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
 
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
+LOGIN_URL = 'login'  # Name of the login URL pattern
+STATIC_URL = 'static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom user model
-AUTH_USER_MODEL = 'shops.Vendor'
+AUTH_USER_MODEL = 'shops.Vendor'  # Add this line to specify the custom user model
