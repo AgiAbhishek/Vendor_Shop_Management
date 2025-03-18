@@ -33,7 +33,7 @@ REST_FRAMEWORK = {
 
 # Other settings (add these if they are missing)
 SECRET_KEY = 'your-secret-key-here'  # Replace with a secure key
-DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+DEBUG=True
 # settings.py
 ALLOWED_HOSTS = [
     'vendor-shop-management-1.onrender.com',
