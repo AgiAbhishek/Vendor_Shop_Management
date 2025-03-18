@@ -1,18 +1,18 @@
-from pathlib import Path  # Ensure this line is present
+from pathlib import Path
 import os
 import dj_database_url
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Database configuration
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
-    )
-}
+SECRET_KEY = os.getenv('SECRET_KEY', 'your-secret-key-here')
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-# Installed apps
+ALLOWED_HOSTS = [
+    'vendor-shop-management-1.onrender.com',
+    'localhost',
+    '127.0.0.1',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -22,29 +22,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    'shops',  # Your custom app
-]
-
-# Django REST framework configuration
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [  # Fixed typo
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-}
-
-# Other settings (add these if they are missing)
-SECRET_KEY = 'your-secret-key-here'  # Replace with a secure key
-DEBUG = True
-# settings.py
-
-ALLOWED_HOSTS = [
-    'vendor-shop-management-1.onrender.com',
-    'localhost',  # Optional: for local development
-    '127.0.0.1',  # Optional: for local development
+    'shops',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -58,8 +41,8 @@ ROOT_URLCONF = 'VendorShopManagement.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Add any additional template directories here
-        'APP_DIRS': True,  # This ensures Django looks for templates in each app's `templates/` directory
+        'DIRS': [],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -72,6 +55,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'VendorShopManagement.wsgi.application'
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
+    )
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -92,10 +81,10 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
-LOGIN_URL = 'login'  # Name of the login URL pattern
-STATIC_URL = 'static/'
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Custom user model
-AUTH_USER_MODEL = 'shops.Vendor'  # Add this line to specify the custom user model
+AUTH_USER_MODEL = 'shops.Vendor'
