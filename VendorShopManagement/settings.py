@@ -12,8 +12,11 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'your-secret-key-here')
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
 # Allow all hosts for testing (not recommended for production)
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
-
+ALLOWED_HOSTS = [
+    'vendor-shop-management.onrender.com',  # Add your Render domain here
+    'localhost',  # For local development
+    '127.0.0.1',  # For local development
+]
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
